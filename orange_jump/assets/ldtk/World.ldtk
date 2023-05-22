@@ -3045,7 +3045,7 @@
 			"uid": 131,
 			"tags": [],
 			"exportToToc": true,
-			"doc": "FInishZone",
+			"doc": "end",
 			"width": 16,
 			"height": 16,
 			"resizableX": true,
@@ -3268,7 +3268,7 @@
 						},
 						{
 							"__identifier": "playerspawn",
-							"__grid": [13,7],
+							"__grid": [15,31],
 							"__pivot": [0,0],
 							"__tags": [],
 							"__tile": null,
@@ -3277,7 +3277,7 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 132,
-							"px": [208,112],
+							"px": [240,496],
 							"fieldInstances": [{ "__identifier": "Point", "__type": "Point", "__value": null, "__tile": null, "defUid": 133, "realEditorValues": [] }]
 						}
 					]

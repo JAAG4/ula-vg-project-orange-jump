@@ -21,6 +21,12 @@ input_handler.InputHandler.set_keyboard_action(input_handler.KEY_LEFT, "move_lef
 input_handler.InputHandler.set_keyboard_action(input_handler.KEY_a, "move_left")
 input_handler.InputHandler.set_keyboard_action(input_handler.KEY_SPACE, "jump")
 input_handler.InputHandler.set_mouse_click_action(input_handler.MOUSE_BUTTON_1, "jump")
+
+PYGAME_RAW_INPUT = {
+    "move_right": (pygame.K_LEFT, pygame.K_d),
+    "move_left": (pygame.K_LEFT, pygame.K_a),
+}
+
 # Size we want to emulate
 VIRTUAL_WIDTH = 540
 VIRTUAL_HEIGHT = 540
@@ -33,6 +39,7 @@ BASE_DIR = pathlib.Path(__file__).parent
 
 GRAVITY_PPX = 64
 PLAYER_WALK_PPX = 100
+TERMINAL_VEL = 300
 PLAYER_FALL_X_CTRL_RATE = 0.8
 PLAYER_JUMP_X_CTRL_RATE = 0.9
 LEVELS_DEFAULT_CONFIG = {

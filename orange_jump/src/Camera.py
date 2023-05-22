@@ -10,7 +10,7 @@ This file contains the class Camera.
 import pygame
 import logging
 
-logger = logging.getLogger("Camera")
+# logger = logging.getLogger("Camera")
 
 
 class Camera:
@@ -28,7 +28,7 @@ class Camera:
         self.y = y
         self.width = width
         self.height = height
-        logger.info("Created Camera on:%s,%s,%s,%s", x, y, width, height)
+        # logger.info("Created Camera on:%s,%s,%s,%s", x, y, width, height)
 
     def get_rect(self) -> pygame.Rect:
         return pygame.Rect(self.x, self.y, self.width, self.height)

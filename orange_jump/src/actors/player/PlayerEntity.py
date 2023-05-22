@@ -7,7 +7,7 @@ from src.actors.player.states.Walk import GroundedState
 
 # from src.actors.player.states.Idle import IdleState
 # from src.actors.player.states.Jump import JumpState
-# from src.actors.player.states.Fall import FallState
+from src.actors.player.states.Fall import FallState
 
 
 DEFAULT_ANIMATIONS = {
@@ -38,8 +38,9 @@ class Entity(pygame.sprite.Sprite, AnimatedMixin):
         self.animations = {}
         self.generate_animations(animation_defs)  # ?populates self.animations
         self.will_fall = False
-        self.image = None
-        self.mask = None
+        frame = settings.FRAMES[self.texture_key][self.frame_index]
+        self.image = pygame.Surface((frame.width, frame.height), pygame.SRCALPHA)
+        self.mask = pygame.mask.from_surface(self.image)
 
     def change_state(
         self, state_id: str, *args: Tuple[Any], **kwargs: Dict[str, Any]
@@ -84,7 +85,7 @@ class Player(Entity):
             # "idle": lambda sm: IdleState(self, sm),
             "walk": lambda sm: GroundedState(self, sm),
             # "jump": lambda sm: JumpState(self, sm),
-            # "fall": lambda sm: FallState(self, sm),
+            "fall": lambda sm: FallState(self, sm),
         }
         self.will_fall = False
         super().__init__(x, y, width, height, texture_key, states, animation_defs)
@@ -101,9 +102,3 @@ class Player(Entity):
         super(Player, self).update(dt)
         self.move(dt)
         self.update_sprite_dir()
-
-    def handle_vertical_collision(self):
-        pass
-
-    def handle_horizontal_collision(self):
-        pass

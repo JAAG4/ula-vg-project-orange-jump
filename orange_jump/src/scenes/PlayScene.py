@@ -3,6 +3,7 @@ import pygame
 from gale.input_handler import InputHandler, InputData
 from gale.text import render_text
 from gale.timer import Timer
+from src.LDtk import  EntityInstance
 
 import settings
 from src.Camera import Camera
@@ -52,11 +53,35 @@ class PlayState(BaseState):
     def exit(self) -> None:
         InputHandler.unregister_listener(self)
 
+    def check_wincon(self,end:EntityInstance):
+        # end:EntityInstance = self.levelobj.entities.get("end")
+        end_rect = pygame.Rect(left=end.px[0],top=end.px[1],height=end.height,width=end.width)
+        if end_rect.contains(self.player.rect)
+            
+
     def update(self, dt: float) -> None:
+        # * Remember : Level :: self.coll_image
+        # * Remember : Level :: self.coll_mask
+        self.check_wincon(self)
         self.player.update(dt)
         self.camera.x = 0
-        self.camera.y = self.player.y
-        # self.levelobj.update(dt)
+        self.camera.y = self.player.y - (settings.VIRTUAL_HEIGHT // 3 * 2)
+
+        offset_x = self.levelobj.x - self.player.x
+        offset_y = self.levelobj.y - self.player.y
+
+        overlaps, magni = self.player.mask.overlap(
+            self.levelobj.coll_mask, offset=(offset_x, offset_y)
+        ), self.player.mask.overlap_area(
+            self.levelobj.coll_mask, offset=(offset_x, offset_y)
+        )
+        # print(overlaps, magni)
+        if not overlaps:
+            self.player.will_fall = True
+        if overlaps:
+            self.player.will_fall = False
+            self.player.y += overlaps[1] - self.player.height
+            self.player.y_vel = 0
 
     def render(self, surface: pygame.Surface) -> None:
         world_surf = pygame.Surface((self.levelobj.width, self.levelobj.height))
@@ -65,7 +90,3 @@ class PlayState(BaseState):
         surface.blit(world_surf, (-self.camera.x, -self.camera.y))
 
         # render_text = # Timer goind up
-
-    def on_input(self, input_id: str, input_data: InputData) -> None:
-        # raise NotImplementedError
-        pass
