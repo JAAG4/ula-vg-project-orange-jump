@@ -6,7 +6,7 @@ import settings
 from src.actors.player.states.Walk import GroundedState
 
 # from src.actors.player.states.Idle import IdleState
-# from src.actors.player.states.Jump import JumpState
+from src.actors.player.states.Jump import JumpState
 from src.actors.player.states.Fall import FallState
 
 
@@ -15,6 +15,7 @@ DEFAULT_ANIMATIONS = {
     "walk": {"frames": [12, 13, 14, 15, 16, 17], "interval": 0.2},
     "jump": {"frames": [18]},
     "fall": {"frames": [19, 20], "interval": 0.1},
+    "double_jump": {"frames": [6, 7, 8, 9, 10, 11], "interval": 0.05},
 }
 
 
@@ -84,10 +85,11 @@ class Player(Entity):
         states = {
             # "idle": lambda sm: IdleState(self, sm),
             "walk": lambda sm: GroundedState(self, sm),
-            # "jump": lambda sm: JumpState(self, sm),
+            "jump": lambda sm: JumpState(self, sm),
             "fall": lambda sm: FallState(self, sm),
         }
         self.will_fall = False
+        self.rollback = (x, y)
         super().__init__(x, y, width, height, texture_key, states, animation_defs)
 
     def move(self, dt):
@@ -100,5 +102,6 @@ class Player(Entity):
 
     def update(self, dt):
         super(Player, self).update(dt)
+        self.rollback = self.x, self.y
         self.move(dt)
         self.update_sprite_dir()

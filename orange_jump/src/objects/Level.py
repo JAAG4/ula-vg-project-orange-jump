@@ -68,6 +68,8 @@ class Level(pygame.sprite.Sprite):
 
     def render(self, surface: pygame.Surface):
         for layer, layerimg in self.layers_imgs:
+            if "-int" in layer:
+                continue
             surface.blit(layerimg, (self.x, self.y))
             if "main" in layer:
                 self.coll_image = pygame.Surface.copy(layerimg)

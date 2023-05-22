@@ -15,5 +15,6 @@ if __name__ == "__main__":
         settings.WINDOW_HEIGHT,
         settings.VIRTUAL_WIDTH,
         settings.VIRTUAL_HEIGHT,
+        fps=30,
     )
     game.exec()

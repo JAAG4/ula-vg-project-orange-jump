@@ -52,5 +52,5 @@ class GroundedState(BaseEntityState):
                 self.entity.change_animation("idle")
                 self.entity.x_vel = 0
 
-            elif input_id == "jump" and input_data.pressed:
-                self.entity.change_state("jump")
+        if input_id == "jump" and input_data.pressed:
+            self.entity.change_state("jump")
